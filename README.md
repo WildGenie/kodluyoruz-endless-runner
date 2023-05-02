@@ -116,6 +116,95 @@ void loop() {
 
 ```
 
+Fonksiyon örnek kodları:
+
+```c
+// LCD ekran için özel grafikler yükler
+void initializeGraphics() {
+  // LCD ekranı başlat
+  lcd.begin();
+  // Koşan karakterin iki farklı sprite'ını tanımla
+  byte SPRITE_RUN1[] = {
+    // Buraya karakterin ilk sprite'ını yaz
+  };
+  byte SPRITE_RUN2[] = {
+    // Buraya karakterin ikinci sprite'ını yaz
+  };
+}
+
+// Karakterin konumuna göre LCD ekran üzerinde sprite'ını çizer
+void drawHero() {
+  // Karakterin konumunu temizle
+  lcd.setCursor(heroX, heroY);
+  lcd.write(" ");
+  // Karakterin yeni konumunu belirle
+  if (buttonPressed) {
+    // Butona basılırsa karakter zıplar
+    heroY = 0;
+  } else {
+    // Butona basılmazsa karakter düşer
+    heroY = 1;
+  }
+  // Karakterin yeni konumunu çiz
+  lcd.setCursor(heroX, heroY);
+  if (heroY == 0) {
+    // Karakter zıplıyorsa ilk sprite'ını göster
+    lcd.write(SPRITE_RUN1);
+  } else {
+    // Karakter zıplamıyorsa ikinci sprite'ını göster
+    lcd.write(SPRITE_RUN2);
+  }
+}
+
+// Engelleri LCD ekran üzerinde çizer
+void drawTerrain() {
+  // Engellerin konumlarını temizle
+  for (int i = 0; i < LCD_WIDTH; i++) {
+    lcd.setCursor(i, terrainY);
+    lcd.write(" ");
+    lcd.setCursor(i, terrainY + 1);
+    lcd.write(" ");
+  }
+  // Engellerin yeni konumlarını belirle
+  for (int i = LCD_WIDTH - 1; i >= 0; i--) {
+    if (i == LCD_WIDTH - 1) {
+      // Eğer engel dizisi sonuna gelinirse yeni bir engel dizisi oluştur
+      if (terrainIndex == TERRAIN_LENGTH - LCD_WIDTH) {
+        generateTerrain();
+      }
+      // Engelleri bir karakter sola kaydır
+      terrainIndex++;
+    }
+    // Engelleri ekrana çiz
+    lcd.setCursor(i, terrainY);
+    lcd.write(typea[terrainIndex + i]);
+    lcd.setCursor(i, terrainY + 1);
+    lcd.write(typeaa[terrainIndex + i]);
+  }
+}
+
+// Karakterin konumunu butona basılıp basılmadığına göre günceller
+void updateHeroPosition() {
+  // Butonun durumunu oku
+  buttonPressed = digitalRead(BUTTON_PIN);
+}
+
+// Engellerin konumunu günceller
+void updateTerrain() {
+  // Her döngüde engeller bir karakter sola kaydırılır
+}
+
+// Karakterin engellere çarpıp çarpmadığını kontrol eder
+bool checkCollision() {
+  // Eğer karakterin konumu ve engelin konumu aynı ise çarpışma olmuş demektir
+  if (typea[terrainIndex + heroX] != ' ' || typeaa[terrainIndex + heroX] != ' ') {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+
 ## Kaynaklar
 
 Benzer proje kaynaklarına aşağıdaki linklerden ulaşabilirsiniz
