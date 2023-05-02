@@ -24,7 +24,7 @@ Bu workshop’ta Arduino, buton ve karakter LCD kullanarak endless runner tarzı
 
 Arduino’yu bilgisayara bağlayın ve ilgili kodu indirerek kodu yükleyin. Butonu 7 numaralı pine, LCD’yi 8-13 numaralı pinlere bağlayın. LCD’nin kontrastını ayarlamak için potansiyometre kullanabilirsiniz. Aşağıdaki şemaya göre bağlantıları yapın.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/63934095-64be-49de-9752-746190ec90fa/Untitled.png)
+![Kurulum Şeması](https://user-images.githubusercontent.com/39780/235758273-b6d4a8da-577d-455c-9889-0cc2ba986c2d.png)
 
 ## Oynanış
 
